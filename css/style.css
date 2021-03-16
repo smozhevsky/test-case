@@ -1,11 +1,13 @@
 @font-face {
   font-family: "Quentin"; 
-  src: url("../fonts/Quentin.otf") format("opentype");
+  src: local("Quentin"),
+  url("../fonts/Quentin.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Tiempos Fine";
-  src: url("../fonts/TiemposFine-Bold.otf") format("opentype");
+  src: local("Tiempos Fine"),
+  url("../fonts/TiemposFine-Bold.otf") format("opentype");
 }
 
 body {
@@ -20,7 +22,6 @@ body {
 .container {
   margin: 0 auto;
   max-width: 940px;
-  min-height: 460px;
   width: 100%;
 }
 
@@ -42,15 +43,16 @@ body {
   text-align: center;
 }
 
-.main-content_title {
+.main-content__title {
   font-family: "Tiempos Fine";
+  font-display: swap;
   font-size: 50px;
   color: #FFFFFF;
   letter-spacing: 0.270833px;
   line-height: 60px;
 }
-
-.main-content_title span {
+/* Check className below */
+.main-content__title_sized { 
   font-family: "Quentin"; 
   font-size: 70px;
   font-weight: normal;
@@ -58,7 +60,7 @@ body {
 }
 
 /* reset button styles */
-.main-content_button {
+.main-content__button {
   padding: 0;
   border: none;
   background-color: transparent;
@@ -69,12 +71,11 @@ body {
   outline: none;
 }
 
-.main-content_button:active {
+.main-content__button:active {
   transform: translateY(1px);
 }
 
-.main-content_button:hover,
-.main-content_button:focus {
+.main-content__button:hover,
+.main-content__button:focus {
   opacity: .8;
 }
-
