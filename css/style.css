@@ -1,0 +1,80 @@
+@font-face {
+  font-family: "Quentin"; 
+  src: url("../fonts/Quentin.otf") format("opentype");
+}
+
+@font-face {
+  font-family: "Tiempos Fine";
+  src: url("../fonts/TiemposFine-Bold.otf") format("opentype");
+}
+
+body {
+  background: #183028;
+  background-image: url(../img/main.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  margin: 0 auto;
+  max-width: 940px;
+  min-height: 460px;
+  width: 100%;
+}
+
+.main-content::before {
+  content: "";
+  display: block;
+  width: 100px;
+  height: 9px;
+  background-color: #FFDF37;
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-around; */
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  text-align: center;
+}
+
+.main-content_title {
+  font-family: "Tiempos Fine";
+  font-size: 50px;
+  color: #FFFFFF;
+  letter-spacing: 0.270833px;
+  line-height: 60px;
+}
+
+.main-content_title span {
+  font-family: "Quentin"; 
+  font-size: 70px;
+  font-weight: normal;
+  letter-spacing: normal;
+}
+
+/* reset button styles */
+.main-content_button {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  border: solid 1px transparent;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  outline: none;
+}
+
+.main-content_button:active {
+  transform: translateY(1px);
+}
+
+.main-content_button:hover,
+.main-content_button:focus {
+  opacity: .8;
+}
+
