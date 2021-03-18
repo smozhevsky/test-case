@@ -1,5 +1,34 @@
 const playButton = document.querySelector(".main-content__button");
 let link = "https://www.youtube.com/embed/mhDJNfV7hjk";
+
+function throttle(func, ms) {
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
+
+  function wrapper() {
+    if (isThrottled) {
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments);
+
+    isThrottled = true;
+
+    setTimeout(function () {
+      isThrottled = false;
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
+
 class ModalWindow {
   constructor(btn, url) {
     this.btn = btn;
