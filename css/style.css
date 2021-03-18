@@ -35,11 +35,9 @@ body {
 .main-content {
   display: flex;
   flex-direction: column;
-  /* justify-content: space-around; */
   justify-content: center;
   align-items: center;
   height: 90vh;
-  text-align: center;
 }
 
 .main-content__title {
@@ -49,13 +47,19 @@ body {
   color: #ffffff;
   letter-spacing: 0.270833px;
   line-height: 60px;
+  text-align: center;
+  margin-top: 50px;
+  margin-bottom: 50px;
 }
+
 /* Check className below */
 .main-content__title_sized {
   font-family: "Quentin";
   font-size: 70px;
   font-weight: normal;
   letter-spacing: normal;
+  padding-left: 20px;
+  padding-right: 10px;
 }
 
 /* reset button styles */
@@ -81,6 +85,7 @@ body {
 
 .popup-window {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100%;
@@ -99,7 +104,14 @@ body {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
 }
 
+.close-button-wrapper {
+  width: 100vw;
+  display: flex;
+  justify-content: flex-end;
+}
+
 .close-button {
-  width: 50px;
-  height: 50px;
+  cursor: pointer;
+  margin-right: 50px;
+  margin-bottom: 10px;
 }

@@ -37,24 +37,26 @@ class ModalWindow {
 
   static getIframeSize() {
     return {
-      width: window.innerWidth - 150,
-      height: window.innerHeight - 150,
+      width: window.innerWidth - 100,
+      height: window.innerHeight - 100,
     };
   }
 
   createModalHtml() {
     const { width, height } = ModalWindow.getIframeSize();
 
-    return `<div class="popup-window" >
-            <button class="close-button">del</button>
-            <div class="popup-window-content">
+    return `<div class="popup-window">
+              <div class="close-button-wrapper">
+                <button class="close-button">del</button>
+              </div>
+              <div class="popup-window-content">
                 <iframe
-                    class="popup-video"
-                    width="${width}" height="${height}"
-                    src="${this.url}" 
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen="">
+                  class="popup-video"
+                  width="${width}" height="${height}"
+                  src="${this.url}" 
+                  frameborder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowfullscreen="">
                 </iframe>
 
             </div>
@@ -70,7 +72,7 @@ class ModalWindow {
       const iframe = document.querySelector(".popup-video");
 
       const throttleResize = throttle(() => {
-        console.log("resize");
+        // console.log("resize");
         const { width, height } = ModalWindow.getIframeSize();
 
         iframe.setAttribute("width", width);
@@ -86,27 +88,14 @@ class ModalWindow {
         popup.remove();
       });
 
+      // close popUp when esc pressed
       window.onkeydown = function (event) {
         if (event.keyCode == 27) {
-          console.log("234");
           popup.remove();
         }
       };
 
-      // // close popUp when esc pressed
-      // // and navigation on press tab
-      // popUp.addEventListener('keydown', (e) => {
-      //     if (e.keyCode === 27 && popUp) {
-      //         e.preventDefault();
-      //         popUp.remove();
-      //         return;
-      //     }
-      //     if (e.keyCode === 9 && popup) {
-      //         // some focusCatcher
-      //     }
-      // });
-
-      //or bottom
+      //or or the option below
 
       // const popUp = document.createElement("div");
       // popUp.classList.toggle("popup-window");
