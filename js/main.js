@@ -47,7 +47,7 @@ class ModalWindow {
 
     return `<div class="popup-window">
               <div class="close-button-wrapper">
-                <button class="close-button">del</button>
+                <button class="close-button"><img class="close-button-img" src="img/close-button.png" alt="close"></button>
               </div>
               <div class="popup-window-content">
                 <iframe

@@ -97,9 +97,6 @@ body {
   left: 0;
 }
 
-/* .popup-window-content {
-} */
-
 .popup-video {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
 }
@@ -112,6 +109,25 @@ body {
 
 .close-button {
   cursor: pointer;
-  margin-right: 50px;
-  margin-bottom: 10px;
+  margin-right: 10px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100px;
+  height: 50px;
+}
+
+.close-button-img {
+  width: 30px;
+  height: 30px;
+  opacity: 0.6;
+}
+
+.close-button-img:active {
+  transform: translateY(1px);
+}
+
+.close-button-img:hover,
+.close-button-img:focus {
+  opacity: 1;
 }
