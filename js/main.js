@@ -8,7 +8,7 @@ class ModalWindow {
     this.url = url;
   }
 
-  init() {
+  createModal() {
     this.btn.addEventListener("click", () => {
       const popUp = document.createElement("div");
       popUp.classList.toggle("b-popup");
@@ -29,6 +29,10 @@ class ModalWindow {
       popUp.appendChild(popUpContent);
       popUpContent.appendChild(videoLink);
     });
+  }
+
+  init() {
+    this.createModal();
   }
 
   destroy() {
