@@ -1,7 +1,5 @@
 const playButton = document.querySelector(".main-content__button");
-
 let link = "https://www.youtube.com/embed/mhDJNfV7hjk";
-
 class ModalWindow {
   constructor(btn, url) {
     this.btn = btn;
@@ -9,12 +7,17 @@ class ModalWindow {
   }
 
   createModal() {
+    //IIFE нужно ли?
+
     this.btn.addEventListener("click", () => {
       const popUp = document.createElement("div");
-      popUp.classList.toggle("b-popup");
+      popUp.classList.toggle("popup-window");
       const popUpContent = document.createElement("div");
-      popUpContent.classList.toggle("popup-window");
+      popUpContent.classList.toggle("popup-window-content");
       const videoLink = document.createElement("iframe");
+      const closeButton = document.createElement("button");
+      closeButton.textContent = "del";
+      closeButton.classList.toggle("close-button");
       videoLink.classList.toggle("popup-video");
       videoLink.setAttribute("width", "940");
       videoLink.setAttribute("height", "600");
@@ -28,6 +31,21 @@ class ModalWindow {
       document.body.append(popUp);
       popUp.appendChild(popUpContent);
       popUpContent.appendChild(videoLink);
+      popUpContent.appendChild(closeButton);
+
+      //close popUp when esc pressed
+      //and navigation on press tab
+      popUp.addEventListener("keydown", (e) => {
+        if (e.keyCode == 27 && popUp) {
+          e.preventDefault();
+          popUp.remove();
+          return;
+        }
+        if (e.keyCode == 9 && popUp) {
+          //some focusCatcher
+          return;
+        }
+      });
     });
   }
 
@@ -35,23 +53,7 @@ class ModalWindow {
     this.createModal();
   }
 
-  destroy() {
-    this.btn.removeEventListener("click", () => {});
-
-    //   window.addEventListener("keydown", function (e) {
-    //     //закрытие окна по escape
-    //     if (e.keyCode == 27 && this.isOpened) {
-    //         e.preventDefault();
-    //         this.close();
-    //         return;
-    //     }
-    //     // управление по tab
-    //     if (e.keyCode == 9 && this.isOpened) {
-    //       this.focusCatcher(e);
-    //       return;
-    //   }
-    // }
-  }
+  destroy() {}
 }
 
 let modality = new ModalWindow(playButton, link);

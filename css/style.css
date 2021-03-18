@@ -92,6 +92,14 @@ body {
   left: 0;
 }
 
+/* .popup-window-content {
+} */
+
 .popup-video {
   box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.6);
+}
+
+.close-button {
+  width: 50px;
+  height: 50px;
 }
