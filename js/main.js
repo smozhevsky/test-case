@@ -151,7 +151,12 @@ class ModalWindow {
     this.createModal();
   }
 
-  destroy() {}
+  destroy() {
+    //removeEventListener from adding
+    // from tracking 'tab' and focus
+    const popup = document.querySelector(".popup-window");
+    popup.remove();
+  }
 }
 
 let modality = new ModalWindow(playButton, link);
