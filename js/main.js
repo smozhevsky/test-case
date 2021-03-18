@@ -2,7 +2,7 @@ const playButton = document.querySelector(".main-content__button");
 // const bPopup = document.querySelector(".b-popup");
 // const bPopupContent = document.querySelector(".b-popup-content");
 
-let link = "https://www.youtube.com/v/mhDJNfV7hjk";
+let link = "https://www.youtube.com/embed/mhDJNfV7hjk";
 
 class ModalWindow {
   constructor(btn, url) {
@@ -16,9 +16,16 @@ class ModalWindow {
       bPopUp.classList.toggle("b-popup");
       const bPopupContent = document.createElement("div");
       bPopupContent.classList.toggle("b-popup-content");
-      const aLink = document.createElement("a");
-      aLink.setAttribute("href", this.url);
-      aLink.textContent = "play video";
+      const aLink = document.createElement("iframe");
+      aLink.setAttribute("width", "940");
+      aLink.setAttribute("height", "600");
+      aLink.setAttribute("src", this.url);
+      aLink.setAttribute("frameborder", "0");
+      aLink.setAttribute(
+        "allow",
+        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      );
+      aLink.setAttribute("allowfullscreen", "");
       document.body.append(bPopUp);
       bPopUp.appendChild(bPopupContent);
       bPopupContent.appendChild(aLink);
