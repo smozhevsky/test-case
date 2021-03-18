@@ -42,46 +42,108 @@ class ModalWindow {
     };
   }
 
-  createModal() {
-    //IIFE нужно ли?
+  createModalHtml() {
+    const { width, height } = ModalWindow.getIframeSize();
 
+    return `<div class="popup-window" >
+            <button class="close-button">del</button>
+            <div class="popup-window-content">
+                <iframe
+                    class="popup-video"
+                    width="${width}" height="${height}"
+                    src="${this.url}" 
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen="">
+                </iframe>
+
+            </div>
+        </div>`;
+  }
+
+  createModal() {
     this.btn.addEventListener("click", () => {
-      const popUp = document.createElement("div");
-      popUp.classList.toggle("popup-window");
-      const popUpContent = document.createElement("div");
-      popUpContent.classList.toggle("popup-window-content");
-      const videoLink = document.createElement("iframe");
-      const closeButton = document.createElement("button");
-      closeButton.textContent = "del";
-      closeButton.classList.toggle("close-button");
-      videoLink.classList.toggle("popup-video");
-      videoLink.setAttribute("width", "940");
-      videoLink.setAttribute("height", "600");
-      videoLink.setAttribute("src", this.url);
-      videoLink.setAttribute("frameborder", "0");
-      videoLink.setAttribute(
-        "allow",
-        "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      );
-      videoLink.setAttribute("allowfullscreen", "");
-      document.body.append(popUp);
-      popUp.appendChild(popUpContent);
-      popUpContent.appendChild(videoLink);
-      popUpContent.appendChild(closeButton);
+      const modalHtmlString = this.createModalHtml();
+
+      document.body.insertAdjacentHTML("beforeend", modalHtmlString);
+
+      const iframe = document.querySelector(".popup-video");
+
+      const throttleResize = throttle(() => {
+        console.log("resize");
+        const { width, height } = ModalWindow.getIframeSize();
+
+        iframe.setAttribute("width", width);
+        iframe.setAttribute("height", height);
+      }, 1000);
+
+      window.addEventListener("resize", throttleResize, false);
+
+      const deleteBtn = document.querySelector(".close-button");
+      const popup = document.querySelector(".popup-window");
+
+      deleteBtn.addEventListener("click", () => {
+        popup.remove();
+      });
+
+      window.onkeydown = function (event) {
+        if (event.keyCode == 27) {
+          console.log("234");
+          popup.remove();
+        }
+      };
+
+      // // close popUp when esc pressed
+      // // and navigation on press tab
+      // popUp.addEventListener('keydown', (e) => {
+      //     if (e.keyCode === 27 && popUp) {
+      //         e.preventDefault();
+      //         popUp.remove();
+      //         return;
+      //     }
+      //     if (e.keyCode === 9 && popup) {
+      //         // some focusCatcher
+      //     }
+      // });
+
+      //or bottom
+
+      // const popUp = document.createElement("div");
+      // popUp.classList.toggle("popup-window");
+      // const popUpContent = document.createElement("div");
+      // popUpContent.classList.toggle("popup-window-content");
+      // const videoLink = document.createElement("iframe");
+      // const closeButton = document.createElement("button");
+      // closeButton.textContent = "del";
+      // closeButton.classList.toggle("close-button");
+      // videoLink.classList.toggle("popup-video");
+      // videoLink.setAttribute("width", "940");
+      // videoLink.setAttribute("height", "600");
+      // videoLink.setAttribute("src", this.url);
+      // videoLink.setAttribute("frameborder", "0");
+      // videoLink.setAttribute(
+      //   "allow",
+      //   "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      // );
+      // videoLink.setAttribute("allowfullscreen", "");
+      // document.body.append(popUp);
+      // popUp.appendChild(popUpContent);
+      // popUpContent.appendChild(videoLink);
+      // popUpContent.appendChild(closeButton);
 
       //close popUp when esc pressed
       //and navigation on press tab
-      popUp.addEventListener("keydown", (e) => {
-        if (e.keyCode == 27 && popUp) {
-          e.preventDefault();
-          popUp.remove();
-          return;
-        }
-        if (e.keyCode == 9 && popUp) {
-          //some focusCatcher
-          return;
-        }
-      });
+
+      // popUp.addEventListener("keydown", (e) => {
+      //   if (e.keyCode == 27 && popUp) {
+      //     e.preventDefault();
+      //     popUp.remove();
+      //     return;
+      //   }
+      //   if (e.keyCode == 9 && popUp) {
+      //     //some focusCatcher
+      //     return;
+      //   }
     });
   }
 
