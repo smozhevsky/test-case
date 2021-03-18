@@ -88,7 +88,8 @@ body {
   background-color: rgba(0, 0, 0, 0.4);
   overflow: hidden;
   position: fixed;
-  top: 0px;
+  top: 0;
+  left: 0;
 }
 
 .popup-video {

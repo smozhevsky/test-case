@@ -52,4 +52,3 @@ class ModalWindow {
 
 let modality = new ModalWindow(playButton, link);
 modality.init();
-modality.destroy();
