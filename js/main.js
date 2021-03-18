@@ -35,6 +35,13 @@ class ModalWindow {
     this.url = url;
   }
 
+  static getIframeSize() {
+    return {
+      width: window.innerWidth - 150,
+      height: window.innerHeight - 150,
+    };
+  }
+
   createModal() {
     //IIFE нужно ли?
 
