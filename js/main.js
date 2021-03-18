@@ -1,6 +1,4 @@
 const playButton = document.querySelector(".main-content__button");
-// const bPopup = document.querySelector(".b-popup");
-// const bPopupContent = document.querySelector(".b-popup-content");
 
 let link = "https://www.youtube.com/embed/mhDJNfV7hjk";
 
@@ -12,23 +10,24 @@ class ModalWindow {
 
   init() {
     this.btn.addEventListener("click", () => {
-      const bPopUp = document.createElement("div");
-      bPopUp.classList.toggle("b-popup");
-      const bPopupContent = document.createElement("div");
-      bPopupContent.classList.toggle("b-popup-content");
-      const aLink = document.createElement("iframe");
-      aLink.setAttribute("width", "940");
-      aLink.setAttribute("height", "600");
-      aLink.setAttribute("src", this.url);
-      aLink.setAttribute("frameborder", "0");
-      aLink.setAttribute(
+      const popUp = document.createElement("div");
+      popUp.classList.toggle("b-popup");
+      const popUpContent = document.createElement("div");
+      popUpContent.classList.toggle("popup-window");
+      const videoLink = document.createElement("iframe");
+      videoLink.classList.toggle("popup-video");
+      videoLink.setAttribute("width", "940");
+      videoLink.setAttribute("height", "600");
+      videoLink.setAttribute("src", this.url);
+      videoLink.setAttribute("frameborder", "0");
+      videoLink.setAttribute(
         "allow",
         "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
       );
-      aLink.setAttribute("allowfullscreen", "");
-      document.body.append(bPopUp);
-      bPopUp.appendChild(bPopupContent);
-      bPopupContent.appendChild(aLink);
+      videoLink.setAttribute("allowfullscreen", "");
+      document.body.append(popUp);
+      popUp.appendChild(popUpContent);
+      popUpContent.appendChild(videoLink);
     });
   }
 
