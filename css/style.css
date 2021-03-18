@@ -1,13 +1,12 @@
 @font-face {
-  font-family: "Quentin"; 
-  src: local("Quentin"),
-  url("../fonts/Quentin.otf") format("opentype");
+  font-family: "Quentin";
+  src: local("Quentin"), url("../fonts/Quentin.otf") format("opentype");
 }
 
 @font-face {
   font-family: "Tiempos Fine";
   src: local("Tiempos Fine"),
-  url("../fonts/TiemposFine-Bold.otf") format("opentype");
+    url("../fonts/TiemposFine-Bold.otf") format("opentype");
 }
 
 body {
@@ -30,7 +29,7 @@ body {
   display: block;
   width: 100px;
   height: 9px;
-  background-color: #FFDF37;
+  background-color: #ffdf37;
 }
 
 .main-content {
@@ -47,13 +46,13 @@ body {
   font-family: "Tiempos Fine";
   font-display: swap;
   font-size: 50px;
-  color: #FFFFFF;
+  color: #ffffff;
   letter-spacing: 0.270833px;
   line-height: 60px;
 }
 /* Check className below */
-.main-content__title_sized { 
-  font-family: "Quentin"; 
+.main-content__title_sized {
+  font-family: "Quentin";
   font-size: 70px;
   font-weight: normal;
   letter-spacing: normal;
@@ -77,5 +76,25 @@ body {
 
 .main-content__button:hover,
 .main-content__button:focus {
-  opacity: .8;
+  opacity: 0.8;
+}
+
+.b-popup {
+  width: 100%;
+  min-height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+  position: fixed;
+  top: 0px;
+}
+.b-popup .b-popup-content {
+  margin: 50px auto 0 auto;
+  width: 300px;
+  height: max-content;
+  padding: 10px;
+  background-color: #c5c5c5;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px #000;
+  font-size: 20px;
+  text-align: justify;
 }
