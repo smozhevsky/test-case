@@ -1,7 +1,7 @@
 const playButton = document.querySelector(".main-content__button");
 let link = "https://www.youtube.com/embed/mhDJNfV7hjk";
 
-window.addEventListener("DOMContentLoaded", (event) => {
+window.addEventListener("DOMContentLoaded", () => {
   window.modality = new ModalWindow(playButton, link);
   modality.init();
 });
@@ -134,7 +134,7 @@ class ModalWindow {
     this.el.removeEventListener("keydown", this.handlers.tabPress);
 
     window.removeEventListener("keydown", this.handlers.escPress);
-    window.removeEventListener("resize", this.handlers.resize, false);
+    window.removeEventListener("resize", this.handlers.resize);
 
     this.el.remove();
   }
