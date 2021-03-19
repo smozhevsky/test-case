@@ -1,38 +1,34 @@
 const playButton = document.querySelector(".main-content__button");
 let link = "https://www.youtube.com/embed/mhDJNfV7hjk";
 
-function throttle(func, ms) {
-  let isThrottled = false,
-    savedArgs,
-    savedThis;
-
-  function wrapper() {
-    if (isThrottled) {
-      savedArgs = arguments;
-      savedThis = this;
-      return;
-    }
-
-    func.apply(this, arguments);
-
-    isThrottled = true;
-
-    setTimeout(function () {
-      isThrottled = false;
-      if (savedArgs) {
-        wrapper.apply(savedThis, savedArgs);
-        savedArgs = savedThis = null;
-      }
-    }, ms);
-  }
-
-  return wrapper;
-}
+window.addEventListener("DOMContentLoaded", (event) => {
+  window.modality = new ModalWindow(playButton, link);
+  modality.init();
+});
 
 class ModalWindow {
-  constructor(btn, url) {
-    this.btn = btn;
+  constructor(playBtn, url) {
+    this.playBtn = playBtn;
     this.url = url;
+    this.handlers = {};
+  }
+
+  init() {
+    this.el = this.createModal();
+    this.closeBtn = this.el.querySelector(".close-button");
+
+    this.handlers.show = this.showModal.bind(this);
+    this.handlers.hide = this.hideModal.bind(this);
+    this.handlers.resize = throttle(this.handleResize.bind(this), 1000);
+    this.handlers.escPress = this.handleEscPressed.bind(this);
+    this.handlers.tabPress = this.handleTabPressed.bind(this);
+
+    this.playBtn.addEventListener("click", this.handlers.show);
+    this.closeBtn.addEventListener("click", this.handlers.hide);
+    this.el.addEventListener("keydown", this.handlers.tabPress);
+
+    window.addEventListener("keydown", this.handlers.escPress);
+    window.addEventListener("resize", this.handlers.resize, false);
   }
 
   static getIframeSize() {
@@ -132,10 +128,6 @@ class ModalWindow {
     });
   }
 
-  init() {
-    this.createModal();
-  }
-
   destroy() {
     this.btn.removeEventListener("click", this.createModal);
 
@@ -145,6 +137,30 @@ class ModalWindow {
   }
 }
 
-let modality = new ModalWindow(playButton, link);
+function throttle(func, ms) {
+  let isThrottled = false,
+    savedArgs,
+    savedThis;
 
-modality.init();
+  function wrapper() {
+    if (isThrottled) {
+      savedArgs = arguments;
+      savedThis = this;
+      return;
+    }
+
+    func.apply(this, arguments);
+
+    isThrottled = true;
+
+    setTimeout(function () {
+      isThrottled = false;
+      if (savedArgs) {
+        wrapper.apply(savedThis, savedArgs);
+        savedArgs = savedThis = null;
+      }
+    }, ms);
+  }
+
+  return wrapper;
+}
