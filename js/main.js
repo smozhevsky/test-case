@@ -38,7 +38,7 @@ class ModalWindow {
   static getIframeSize() {
     return {
       width: window.innerWidth - 100,
-      height: window.innerHeight - 200,
+      height: window.innerHeight - 100,
     };
   }
 
@@ -53,7 +53,7 @@ class ModalWindow {
                 <iframe
                   class="popup-video"
                   width="${width}" height="${height}"
-                  src="${this.url}" 
+                  src="${this.url}"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen="">
@@ -141,12 +141,14 @@ class ModalWindow {
   }
 
   destroy() {
-    //removeEventListener from adding
-    // from tracking 'tab' and focus
+    this.btn.removeEventListener("click", this.createModal);
+
+    // remove tracking 'tab' and focus
     const popup = document.querySelector(".popup-window");
     popup.remove();
   }
 }
 
 let modality = new ModalWindow(playButton, link);
+
 modality.init();
