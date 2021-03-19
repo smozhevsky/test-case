@@ -135,6 +135,8 @@ class ModalWindow {
 
     window.removeEventListener("keydown", this.handlers.escPress);
     window.removeEventListener("resize", this.handlers.resize, false);
+
+    this.el.remove();
   }
 }
 
