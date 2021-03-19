@@ -47,6 +47,51 @@ class ModalWindow {
     });
   }
 
+  handleResize() {
+    const iframe = this.el.querySelector(".popup-video");
+    const { width, height } = this.getIframeSize();
+
+    iframe.setAttribute("width", width);
+    iframe.setAttribute("height", height);
+  }
+
+  handleEscPressed(event) {
+    if (event.keyCode == 27) {
+      this.hideModal();
+    }
+  }
+
+  handleTabPressed(e) {
+    let isTabPressed = e.key === "Tab" || e.keyCode === 9;
+    if (!isTabPressed) {
+      return;
+    }
+
+    //focus in modal when tab pressed
+    const focusableElements =
+      'button, a, [href], [tabindex]:not([tabindex="-1"])';
+    const firstFocusableElement = this.el.querySelectorAll(
+      focusableElements
+    )[0];
+    const focusableContent = this.el.querySelectorAll(focusableElements);
+    const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+    if (e.shiftKey) {
+      // if shift key pressed for shift + tab combination
+      if (document.activeElement === firstFocusableElement) {
+        lastFocusableElement.focus(); // add focus for the last focusable element
+        e.preventDefault();
+      }
+    } else {
+      // if tab key is pressed
+      if (document.activeElement === lastFocusableElement) {
+        // if focused has reached to last focusable element then focus first focusable element after pressing tab
+        firstFocusableElement.focus(); // add focus for the first focusable element
+        e.preventDefault();
+      }
+    }
+  }
+
   static getIframeSize() {
     return {
       width: window.innerWidth - 100,
@@ -54,10 +99,19 @@ class ModalWindow {
     };
   }
 
+  createModal() {
+    const modalHtmlString = this.createModalHtml();
+
+    document.body.insertAdjacentHTML("beforeend", modalHtmlString);
+    return document.querySelector(".popup-window");
+  }
+
   createModalHtml() {
     const { width, height } = ModalWindow.getIframeSize();
+    const urlParams = "?enablejsapi=1&version=3&playerapiid=ytplayer";
+    const fullUrl = this.url + urlParams;
 
-    return `<div class="popup-window" tabindex="-1">
+    return `<div class="popup-window hidden" tabindex="-1">
               <div class="close-button-wrapper">
                 <button class="close-button"><img class="close-button-img" src="img/close-button.png" alt="close"></button>
               </div>
@@ -65,7 +119,7 @@ class ModalWindow {
                 <iframe
                   class="popup-video"
                   width="${width}" height="${height}"
-                  src="${this.url}"
+                  src="${fullUrl}"
                   frameborder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen="">
@@ -75,77 +129,8 @@ class ModalWindow {
         </div>`;
   }
 
-  createModal() {
-    this.btn.addEventListener("click", () => {
-      const modalHtmlString = this.createModalHtml();
-
-      document.body.insertAdjacentHTML("beforeend", modalHtmlString);
-
-      const iframe = document.querySelector(".popup-video");
-
-      const throttleResize = throttle(() => {
-        // console.log("resize");
-        const { width, height } = ModalWindow.getIframeSize();
-
-        iframe.setAttribute("width", width);
-        iframe.setAttribute("height", height);
-      }, 1000);
-
-      window.addEventListener("resize", throttleResize, false);
-
-      const deleteBtn = document.querySelector(".close-button");
-      const popup = document.querySelector(".popup-window");
-
-      deleteBtn.addEventListener("click", () => {
-        popup.remove();
-      });
-
-      // close popUp when esc pressed
-      window.onkeydown = function (event) {
-        if (event.keyCode == 27) {
-          popup.remove();
-        }
-      };
-
-      //focus in modal when tab pressed
-      const focusableElements =
-        'button, a, [href], [tabindex]:not([tabindex="-1"])';
-      const firstFocusableElement = popup.querySelectorAll(
-        focusableElements
-      )[0];
-      const focusableContent = popup.querySelectorAll(focusableElements);
-      const lastFocusableElement =
-        focusableContent[focusableContent.length - 1];
-
-      popup.addEventListener("keydown", function (e) {
-        let isTabPressed = e.key === "Tab" || e.keyCode === 9;
-
-        if (!isTabPressed) {
-          return;
-        }
-
-        if (e.shiftKey) {
-          // if shift key pressed for shift + tab combination
-          if (document.activeElement === firstFocusableElement) {
-            lastFocusableElement.focus(); // add focus for the last focusable element
-            e.preventDefault();
-          }
-        } else {
-          // if tab key is pressed
-          if (document.activeElement === lastFocusableElement) {
-            // if focused has reached to last focusable element then focus first focusable element after pressing tab
-            firstFocusableElement.focus(); // add focus for the first focusable element
-            e.preventDefault();
-          }
-        }
-      });
-
-      firstFocusableElement.focus();
-    });
-  }
-
   destroy() {
-    this.btn.removeEventListener("click", this.createModal);
+    this.playBtn.removeEventListener("click", this.handlers.show);
 
     // remove tracking 'tab' and focus
     const popup = document.querySelector(".popup-window");
