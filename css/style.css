@@ -21,7 +21,6 @@ body {
 .container {
   margin: 0 auto;
   max-width: 940px;
-  width: 100%;
 }
 
 .main-content::before {
@@ -37,7 +36,8 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 90vh;
+  height: 100vh;
+  width: 100%;
 }
 
 .main-content__title {
@@ -130,4 +130,10 @@ body {
 .close-button-img:hover,
 .close-button-img:focus {
   opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  body {
+    background-image: url(../img/main1024.jpg);
+  }
 }

@@ -38,7 +38,7 @@ class ModalWindow {
   static getIframeSize() {
     return {
       width: window.innerWidth - 100,
-      height: window.innerHeight - 100,
+      height: window.innerHeight - 200,
     };
   }
 
