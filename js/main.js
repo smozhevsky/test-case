@@ -49,7 +49,7 @@ class ModalWindow {
 
   handleResize() {
     const iframe = this.el.querySelector(".popup-video");
-    const { width, height } = this.getIframeSize();
+    const { width, height } = ModalWindow.getIframeSize();
 
     iframe.setAttribute("width", width);
     iframe.setAttribute("height", height);
@@ -124,17 +124,17 @@ class ModalWindow {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowfullscreen="">
                 </iframe>
-
             </div>
         </div>`;
   }
 
   destroy() {
     this.playBtn.removeEventListener("click", this.handlers.show);
+    this.closeBtn.removeEventListener("click", this.handlers.hide);
+    this.el.removeEventListener("keydown", this.handlers.tabPress);
 
-    // remove tracking 'tab' and focus
-    const popup = document.querySelector(".popup-window");
-    popup.remove();
+    window.removeEventListener("keydown", this.handlers.escPress);
+    window.removeEventListener("resize", this.handlers.resize, false);
   }
 }
 
