@@ -116,6 +116,10 @@ body {
   height: 50px;
 }
 
+.close-button:active {
+  background-color: #fff;
+}
+
 .close-button-img {
   width: 30px;
   height: 30px;

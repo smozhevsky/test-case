@@ -95,44 +95,40 @@ class ModalWindow {
         }
       };
 
-      //or or the option below
+      //focus in modal when tab pressed
 
-      // const popUp = document.createElement("div");
-      // popUp.classList.toggle("popup-window");
-      // const popUpContent = document.createElement("div");
-      // popUpContent.classList.toggle("popup-window-content");
-      // const videoLink = document.createElement("iframe");
-      // const closeButton = document.createElement("button");
-      // closeButton.textContent = "del";
-      // closeButton.classList.toggle("close-button");
-      // videoLink.classList.toggle("popup-video");
-      // videoLink.setAttribute("width", "940");
-      // videoLink.setAttribute("height", "600");
-      // videoLink.setAttribute("src", this.url);
-      // videoLink.setAttribute("frameborder", "0");
-      // videoLink.setAttribute(
-      //   "allow",
-      //   "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-      // );
-      // videoLink.setAttribute("allowfullscreen", "");
-      // document.body.append(popUp);
-      // popUp.appendChild(popUpContent);
-      // popUpContent.appendChild(videoLink);
-      // popUpContent.appendChild(closeButton);
+      // const focusableElements = "button, img";
+      // const firstFocusableElement = popup.querySelectorAll(
+      //   focusableElements
+      // )[0];
+      // const focusableContent = popup.querySelectorAll(focusableElements);
+      // const lastFocusableElement =
+      //   focusableContent[focusableContent.length - 1];
 
-      //close popUp when esc pressed
-      //and navigation on press tab
+      // document.addEventListener("keydown", function (e) {
+      //   let isTabPressed = e.key === "Tab" || e.keyCode === 9;
 
-      // popUp.addEventListener("keydown", (e) => {
-      //   if (e.keyCode == 27 && popUp) {
-      //     e.preventDefault();
-      //     popUp.remove();
+      //   if (!isTabPressed) {
       //     return;
       //   }
-      //   if (e.keyCode == 9 && popUp) {
-      //     //some focusCatcher
-      //     return;
+
+      //   if (e.shiftKey) {
+      //     // if shift key pressed for shift + tab combination
+      //     if (document.activeElement === firstFocusableElement) {
+      //       lastFocusableElement.focus(); // add focus for the last focusable element
+      //       e.preventDefault();
+      //     }
+      //   } else {
+      //     // if tab key is pressed
+      //     if (document.activeElement === lastFocusableElement) {
+      //       // if focused has reached to last focusable element then focus first focusable element after pressing tab
+      //       firstFocusableElement.focus(); // add focus for the first focusable element
+      //       e.preventDefault();
+      //     }
       //   }
+      // });
+
+      // firstFocusableElement.focus();
     });
   }
 
