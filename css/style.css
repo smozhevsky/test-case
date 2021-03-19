@@ -64,13 +64,11 @@ body {
 /* reset button styles */
 .main-content__button {
   padding: 0;
-  border: none;
   background-color: transparent;
   cursor: pointer;
   border: solid 1px transparent;
   padding-top: 3px;
   padding-bottom: 3px;
-  outline: none;
 }
 
 .main-content__button:active {
@@ -110,8 +108,7 @@ body {
   cursor: pointer;
   margin-right: 10px;
   background-color: transparent;
-  border: none;
-  outline: none;
+  border: solid 1px transparent;
   width: 100px;
   height: 50px;
 }

@@ -45,7 +45,7 @@ class ModalWindow {
   createModalHtml() {
     const { width, height } = ModalWindow.getIframeSize();
 
-    return `<div class="popup-window">
+    return `<div class="popup-window" tabindex="-1">
               <div class="close-button-wrapper">
                 <button class="close-button"><img class="close-button-img" src="img/close-button.png" alt="close"></button>
               </div>
@@ -96,39 +96,39 @@ class ModalWindow {
       };
 
       //focus in modal when tab pressed
+      const focusableElements =
+        'button, a, [href], [tabindex]:not([tabindex="-1"])';
+      const firstFocusableElement = popup.querySelectorAll(
+        focusableElements
+      )[0];
+      const focusableContent = popup.querySelectorAll(focusableElements);
+      const lastFocusableElement =
+        focusableContent[focusableContent.length - 1];
 
-      // const focusableElements = "button, img";
-      // const firstFocusableElement = popup.querySelectorAll(
-      //   focusableElements
-      // )[0];
-      // const focusableContent = popup.querySelectorAll(focusableElements);
-      // const lastFocusableElement =
-      //   focusableContent[focusableContent.length - 1];
+      popup.addEventListener("keydown", function (e) {
+        let isTabPressed = e.key === "Tab" || e.keyCode === 9;
 
-      // document.addEventListener("keydown", function (e) {
-      //   let isTabPressed = e.key === "Tab" || e.keyCode === 9;
+        if (!isTabPressed) {
+          return;
+        }
 
-      //   if (!isTabPressed) {
-      //     return;
-      //   }
+        if (e.shiftKey) {
+          // if shift key pressed for shift + tab combination
+          if (document.activeElement === firstFocusableElement) {
+            lastFocusableElement.focus(); // add focus for the last focusable element
+            e.preventDefault();
+          }
+        } else {
+          // if tab key is pressed
+          if (document.activeElement === lastFocusableElement) {
+            // if focused has reached to last focusable element then focus first focusable element after pressing tab
+            firstFocusableElement.focus(); // add focus for the first focusable element
+            e.preventDefault();
+          }
+        }
+      });
 
-      //   if (e.shiftKey) {
-      //     // if shift key pressed for shift + tab combination
-      //     if (document.activeElement === firstFocusableElement) {
-      //       lastFocusableElement.focus(); // add focus for the last focusable element
-      //       e.preventDefault();
-      //     }
-      //   } else {
-      //     // if tab key is pressed
-      //     if (document.activeElement === lastFocusableElement) {
-      //       // if focused has reached to last focusable element then focus first focusable element after pressing tab
-      //       firstFocusableElement.focus(); // add focus for the first focusable element
-      //       e.preventDefault();
-      //     }
-      //   }
-      // });
-
-      // firstFocusableElement.focus();
+      firstFocusableElement.focus();
     });
   }
 
