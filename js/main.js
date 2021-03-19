@@ -31,6 +31,22 @@ class ModalWindow {
     window.addEventListener("resize", this.handlers.resize, false);
   }
 
+  showModal() {
+    this.el.classList.remove("hidden");
+  }
+
+  hideModal() {
+    const iframes = this.el.querySelectorAll(".popup-video");
+
+    this.el.classList.add("hidden");
+    iframes.forEach((iframe) => {
+      iframe.contentWindow.postMessage(
+        '{"event":"command","func":"pauseVideo","args":""}',
+        "*"
+      );
+    });
+  }
+
   static getIframeSize() {
     return {
       width: window.innerWidth - 100,
