@@ -111,7 +111,7 @@ class ModalWindow {
     const urlParams = "?enablejsapi=1&version=3&playerapiid=ytplayer";
     const fullUrl = this.url + urlParams;
 
-    return `<div class="popup-window hidden" tabindex="-1">
+    return `<div class="popup-window hidden" tabindex="-1" role="dialog">
               <div class="close-button-wrapper">
                 <button class="close-button"><img class="close-button-img" src="img/close-button.png" alt="close"></button>
               </div>
